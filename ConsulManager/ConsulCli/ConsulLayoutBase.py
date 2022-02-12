@@ -179,7 +179,7 @@ class consulLayoutBase(object):
 
     def create_view(self,
                     stdscr=None,
-                    data_list=None,
+                    data=None,
                     mode=None,
                     prompt_test=None,
                     default_text=None,
@@ -190,7 +190,7 @@ class consulLayoutBase(object):
                             max_heigth=self.max_heigth,
                             max_width=self.max_width,
                             # editable
-                            data_list=data_list,
+                            data_list=data,
                             mode=mode,
                             prompt_test=prompt_test,
                             default_text=default_text,

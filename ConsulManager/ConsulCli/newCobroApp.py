@@ -61,7 +61,7 @@ class newCobroApp(consulLayoutBase):
 
     def cobro_cuenta_state(self, stdscr=None):
         self.create_view(stdscr=stdscr,
-                    data_list=VALID_CUENTAS_LIST,
+                    data=VALID_CUENTAS_LIST,
                     mode=LIST_MODE,
                     prompt_test="[NUEVO COBRO] seleccione la cuenta:",
                     default_text=None,
@@ -70,7 +70,7 @@ class newCobroApp(consulLayoutBase):
 
     def estado_cuenta_state(self, stdscr=None):
         self.create_view(stdscr=stdscr,
-                    data_list=PAGOS_ESTATUS_LIST,
+                    data=PAGOS_ESTATUS_LIST,
                     mode=LIST_MODE,
                     prompt_test="[NUEVO COBRO] seleccione el estado del COBRO:",
                     default_text=None,
@@ -79,7 +79,7 @@ class newCobroApp(consulLayoutBase):
 
     def cobro_factura_estatus(self, stdscr=None):
         self.create_view(stdscr=stdscr,
-                    data_list=FACTURA_STATUS_LIST,
+                    data=FACTURA_STATUS_LIST,
                     mode=LIST_MODE,
                     prompt_test="[NUEVO COBRO] seleccione el estado de la Factura:",
                     default_text=None,
@@ -88,7 +88,7 @@ class newCobroApp(consulLayoutBase):
 
     def final_state(self, stdscr=None):
         self.create_view(stdscr=stdscr,
-                    data_list=None,
+                    data=None,
                     mode=CONFIRM_PICKER,
                     prompt_test="[NUEVO COBRO] Desea crear un COBRO nuevo?:",
                     default_text=None,

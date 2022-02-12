@@ -698,9 +698,15 @@ class DataPadList(DataPadBase):
         }
 
 class DataPadConfirm(DataPadBase):
-    def __init__(self, curses=None, heigth=150, width=30, data=[], max_width=0, max_heigth=0, start_x=67, start_y=1, generate_list_func=None, default_text="", default_data=None):
+    def __init__(self, curses=None, heigth=150, width=30, data=["SI", "NO"], max_width=0, max_heigth=0, start_x=67, start_y=1, generate_list_func=None, default_text="", default_data=None):
         super(DataPadConfirm, self).__init__(curses=curses, heigth=heigth, width=width, data=data, max_width=max_width, max_heigth=max_heigth, start_x=start_x, start_y=start_y, generate_list_func=generate_list_func, default_text=default_text)
-        self.data = ["SI", "NO"]
+        print(f"{default_data =}")
+
+        # update default data
+        if data is None:
+            self.data = ["SI", "NO"]
+        else:
+            self.data = data[:2]
         self.select_index = 0
         self.update_data_screen()
         self.refresh_data()

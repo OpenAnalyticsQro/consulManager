@@ -59,7 +59,7 @@ class newPagoApp(consulLayoutBase):
 
     def pago_cuenta_state(self, stdscr=None):
         self.create_view(stdscr=stdscr,
-                    data_list=VALID_CUENTAS_LIST,
+                    data=VALID_CUENTAS_LIST,
                     mode=LIST_MODE,
                     prompt_test="[NUEVO PAGO] seleccione la cuenta:",
                     default_text=None,
@@ -68,7 +68,7 @@ class newPagoApp(consulLayoutBase):
 
     def estado_cuenta_state(self, stdscr=None):
         self.create_view(stdscr=stdscr,
-                    data_list=PAGOS_ESTATUS_LIST,
+                    data=PAGOS_ESTATUS_LIST,
                     mode=LIST_MODE,
                     prompt_test="[NUEVO PAGO] seleccione el estado del pago:",
                     default_text=None,
@@ -78,7 +78,7 @@ class newPagoApp(consulLayoutBase):
 
     def final_state(self, stdscr=None):
         self.create_view(stdscr=stdscr,
-                    data_list=None,
+                    data=None,
                     mode=CONFIRM_PICKER,
                     prompt_test="[NUEVO PAGO] Desea crear un PAGO nuevo?:",
                     default_text=None,

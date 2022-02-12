@@ -96,11 +96,11 @@ class newConsultaApp(consulLayoutBase):
 
     def consulta_tratamiento_id(self, stdscr=None):
         self.create_view(stdscr=stdscr,
-                    data_list=None,
+                    data = ["<< NUEVO TRATAMIENTO >>", "<< SELECIONAR DENTISTA >>"],
                     mode=CONFIRM_PICKER,
                     prompt_test="[NUEVA CONSULTA] Desea Agregar un nuevo TRATAMIENTO:",
                     default_text=None,
-                    default_data=None,
+                    default_data= None,
                     generate_list_func=None)
     
     def start_tratamientos_app(self, choice=None):
@@ -119,7 +119,7 @@ class newConsultaApp(consulLayoutBase):
 
     def consulta_dentista_id(self, stdscr=None):
         self.create_view(stdscr=stdscr,
-                    data_list=DENTISTAS_LIST,
+                    data=DENTISTAS_LIST,
                     mode=LIST_MODE,
                     prompt_test="[NUEVA CONSULTA] Selecione al Dentista:",
                     default_text=None,
@@ -128,7 +128,7 @@ class newConsultaApp(consulLayoutBase):
 
     def consulta_cobros(self, stdscr=None):
         self.create_view(stdscr=stdscr,
-                    data_list=None,
+                    data=["<< NUEVO COBRO >>", "<< NUEVO PAGO>>"],
                     mode=CONFIRM_PICKER,
                     prompt_test="[NUEVA CONSULTA] Desea Agregar un COBRO:",
                     default_text=None,
@@ -151,7 +151,7 @@ class newConsultaApp(consulLayoutBase):
         
     def consulta_pagos(self, stdscr=None):
         self.create_view(stdscr=stdscr,
-                    data_list=None,
+                    data=None,
                     mode=CONFIRM_PICKER,
                     prompt_test="[NUEVA CONSULTA] Desea Agregar un Pago:",
                     default_text=None,
@@ -175,7 +175,7 @@ class newConsultaApp(consulLayoutBase):
 
     def final_state(self, stdscr=None):
         self.create_view(stdscr=stdscr,
-                    data_list=None,
+                    data=None,
                     mode=CONFIRM_PICKER,
                     prompt_test="[NUEVA CONSULTA] Desea crear una nueva consulta?:",
                     default_text=None,
