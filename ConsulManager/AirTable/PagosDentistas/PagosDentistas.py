@@ -36,7 +36,7 @@ class PagosDentistasAir(object):
         except Exception as e:
             log.error(f"{self.__class__.show_all.__qualname__}: {e}")
 
-    def create_pago(self, monto=None, cuenta=None, estatus=None, fecha=None):
+    def create_pago(self, monto=None, cuenta=None, estatus=None, fecha=None, semana=None):
         if Validators.valid_currency(value=monto) is False:
             log.error(
                 f"{self.__class__.create_pago.__qualname__}: invalid monto: {monto}"
@@ -59,6 +59,7 @@ class PagosDentistasAir(object):
                     FD.CUENTA_DE_PAGO: cuenta,
                     FD.ESTATUS: estatus,
                     FD.FECHA: fecha,
+                    FD.SEMANA: semana
                 }
             )
             return record

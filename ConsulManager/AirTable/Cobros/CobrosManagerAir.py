@@ -33,7 +33,7 @@ class CobrosManagerAir(object):
         except Exception as e:
             log.error(f"{self.__class__.show_all.__qualname__}: {e}")
 
-    def create_cobro(self, monto=None, cuenta=None, estatus=None, fecha=None, factura=None):
+    def create_cobro(self, monto=None, cuenta=None, estatus=None, fecha=None, factura=None, semana=None):
         if Validators.valid_currency(value=monto) is False:
             log.error(
                 f"{self.__class__.create_cobro.__qualname__}: invalid monto: {monto}"
@@ -51,7 +51,7 @@ class CobrosManagerAir(object):
             return None
         try:
             record = self.__table.create(
-                {FD.MONTO: monto, FD.CUENTA: cuenta, FD.ESTATUS: estatus, FD.FECHA: fecha, FD.FACTURA: factura}
+                {FD.MONTO: monto, FD.CUENTA: cuenta, FD.ESTATUS: estatus, FD.FECHA: fecha, FD.FACTURA: factura, FD.SEMANA: semana}
             )
             return record
         except Exception as e:
