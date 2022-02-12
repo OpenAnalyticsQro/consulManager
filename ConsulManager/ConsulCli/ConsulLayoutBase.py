@@ -22,6 +22,7 @@ class View(object):
                 generate_list_func=None,
                 upper=False):
 
+        # TODO: change in % values
         self.data_pad = DATAPAD_DICT[mode](
             curses=curses,
             data = data_list,
@@ -35,18 +36,32 @@ class View(object):
             default_data=default_data,
         )
 
-        
-        self.__prompt = curses.newwin(1,(s1*7)-1, 1, 0)
+        # set prompt_windows
+        self.__max_x_prompt_window = (s1*7)-1
+        self.__max_y_prompt_window = max_heigth - 1
+        self.__prompt = curses.newwin(self.__max_y_prompt_window, self.__max_x_prompt_window, 1, 0)
         self.__prompt_text = prompt_test
         self.refresh()
     
     def process_key(self, key=None):
         return self.data_pad.process_key(key=key)
     
-    def refresh(self):
+    def refresh_prompt(self):
         self.__prompt.clear()
-        self.__prompt.addstr(0, 0, self.__prompt_text)
+
+        # get the chunks in the prompt
+        n = self.__max_x_prompt_window - 1
+        chunks = [self.__prompt_text[i:i+n] for i in range(0, len(self.__prompt_text), n)]
+        index = 0
+
+        # split the string in chunk of the size of the windows
+        for chunk in chunks[:self.__max_y_prompt_window]:
+            self.__prompt.addstr(index, 0, chunk)
+            index += 1
         self.__prompt.refresh()
+
+    def refresh(self):
+        self.refresh_prompt()
         self.data_pad.refresh_data()
 
 

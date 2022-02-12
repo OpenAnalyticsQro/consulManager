@@ -43,7 +43,7 @@ class ListaTratamientosAir(object):
     def find_tratamiento(self, tratamiento=""):
         tratamientos_str = tratamiento.upper()
         name_reg_str = self.__get_name_regex_from_str(paciente=tratamientos_str)
-        print(name_reg_str)
+        # print(name_reg_str)
         if name_reg_str != "":
             name_reg = re.compile(name_reg_str)
             name_list = list(filter(lambda x:name_reg.match(x["data"]), self.__tratamientos_list))
@@ -63,12 +63,26 @@ class ListaTratamientosAir(object):
             paciente_words += ".*"
         return paciente_words
 
+    def get_costo_sugerido(self, id=None):
+        if id is None:
+            return None
+
+        record = self.__table.get(id)['fields']
+        if 'COSTO_SUGERIDO' in record.keys():
+            return record['COSTO_SUGERIDO']
+        return 0
+
 
 if __name__ == "__main__":
     tratamientos = ListaTratamientosAir()
     # tratamientos.show_all()
     tratamientos.update_tratamientos_list()
-    # tratamientos.find_tratamiento("extr")
+    tratamientos.find_tratamiento("extr")
+
+
     x_list = tratamientos.find_tratamiento("Pro")
     for item in x_list:
         print(item)
+
+    costo = tratamientos.get_costo_sugerido("rec9qA0qMZ0k5hznk")
+    print(costo)
