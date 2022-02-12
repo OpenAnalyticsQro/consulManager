@@ -19,6 +19,7 @@ if __name__ == '__main__':
     consulta_list = app.get_data()
 
     log.info("Start to generate consultas ...")
+
     consulta_index = 0
     for consulta in consulta_list:
         # for key in consulta.keys():

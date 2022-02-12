@@ -59,10 +59,14 @@ class newTratamientoApp(consulLayoutBase):
             )
 
     def tratamiento_get_costo_final_id(self, stdscr=None):
+        costo_sugerido = self.__tartamientos_table.get_costo_sugerido(self.data["tratamiento"])
+        if costo_sugerido is None:
+            costo_sugerido = 0
+        cantidad = self.data["cantidad"]
         self.create_view(stdscr=stdscr,
-            mode=INT_NUMBER,
-            prompt_test="[NUEVA TRATAMIENTO] Selecione el COSTO FINAL:",
-            default_text=None,
+            mode=FLOAT_NUMBER,
+            prompt_test=f"[NUEVA TRATAMIENTO] Selecione el COSTO FINAL: ",
+            default_data=costo_sugerido*cantidad,
             generate_list_func=self.function_call
             )
     

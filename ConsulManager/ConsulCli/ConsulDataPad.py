@@ -1006,7 +1006,11 @@ class DataPadFloat(DataPadBase):
         self.select_index = -1
         self.valid_text = False
         self.default_text = "0.0"
-        self.data = [self.default_text]
+        self.default_data = default_data
+        if default_data is not None:
+            self.data = [f"{self.default_data:.2f}"]
+        else:
+            self.data = [self.default_text]
 
         self.update_data_screen()
         self.refresh_data()
@@ -1485,7 +1489,7 @@ class DataPadDatePicker(DataPadBase):
             self.data[0] = f"{int(self.buffer_date):02}"
             self.selected_day = int(self.data[0])
         
-        self.update_date_picker()
+        self.update_data_screen()
         self.refresh_data
         return None
 
