@@ -151,8 +151,8 @@ class newConsultaApp(consulLayoutBase):
         
     def consulta_pagos(self, stdscr=None):
         self.create_view(stdscr=stdscr,
-                    data=None,
-                    mode=CONFIRM_PICKER,
+                    data=["<< NUEVO PAGO >>", "<< NUEVA CONSULTA >>", "<< SALIR y GUARDAR >>"],
+                    mode=LIST_MODE,
                     prompt_test="[NUEVA CONSULTA] Desea Agregar un Pago:",
                     default_text=None,
                     default_data=None,
@@ -162,14 +162,18 @@ class newConsultaApp(consulLayoutBase):
         if choice is None:
             return False
 
-        if choice is True:
+        if choice == "<< NUEVO PAGO >>":
             pago_app = newPagoApp(default_date=self.data["fecha"])
             pago_app.run(stdscr=self.stdscr)
             self.data[self.state_machine[self.current_state]["KEY"]] = pago_app.get_data()
-        else:
-            self.data[self.state_machine[self.current_state]["KEY"]] = None
+            self.current_state = self.state_machine[self.current_state][NEXT_STATE]
+            return True
 
-        self.current_state = self.state_machine[self.current_state][NEXT_STATE]
+
+        self.data[self.state_machine[self.current_state]["KEY"]] = None
+        self.comfirn_exit_choice(choice= (choice == "<< NUEVA CONSULTA >>"))
+
+
         return True
     
 

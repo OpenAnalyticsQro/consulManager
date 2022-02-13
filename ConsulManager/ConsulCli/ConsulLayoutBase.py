@@ -145,11 +145,9 @@ class consulLayoutBase(object):
         if choice is None:
             return False
 
-        # self.data_list.append({self.state_machine[self.current_state]["KEY"]:choice})
         self.data[self.state_machine[self.current_state]["KEY"]] = choice
         self.current_state = self.state_machine[self.current_state][NEXT_STATE]
         return True
-        pass
 
     def comfirn_exit_choice(self, choice=None):
         if choice is None:
