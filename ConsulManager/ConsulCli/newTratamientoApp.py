@@ -6,20 +6,30 @@ from ConsulManager.AirTable.ListaTratamientos.ListaTratamientosAir import ListaT
 
 
 class newTratamientoApp(consulLayoutBase):
-    def __init__(self,init_state=INITIAL_STATE, debug_mode=False):
+    def __init__(self,init_state=INITIAL_STATE, debug_mode=False, default_date="11/03/2022"):
         super().__init__(init_state, debug_mode)
         self.__tartamientos_table = ListaTratamientosAir()
         self.__tartamientos_table.update_tratamientos_list()
         self.function_call = self.__tartamientos_table.find_tratamiento
+        self.default_date = default_date
 
     def set_state_machine(self):
         self.state_machine = {
             INITIAL_STATE:{
-                NEXT_STATE:"GET_CANTIDAD_ST",
+                NEXT_STATE:"SET_DATE_ST",
                 FUNC_STATE:self.inital_state,
                 KEY_EVENT:self.update_choice_from_view,
                 "KEY":"tratamiento"
                 },
+
+            "SET_DATE_ST":{
+                NEXT_STATE:"GET_CANTIDAD_ST",
+                FUNC_STATE:self.set_date,
+                KEY_EVENT:self.update_choice_from_view,
+                "KEY":"fecha"
+                },
+
+            
             "GET_CANTIDAD_ST":{
                 NEXT_STATE:"GET_COSTO_FINAL_ST",
                 FUNC_STATE:self.tratamiento_get_cantidad_id,
@@ -49,6 +59,12 @@ class newTratamientoApp(consulLayoutBase):
             default_data=None,
             generate_list_func=self.function_call
             )
+
+    def set_date(self, stdscr=None):
+        self.create_view(stdscr=stdscr,
+            mode=DATE_PICKER,
+            prompt_test="[NUEVO TRATAMIENTO] Selecione la fecha del inicio del TRATAMIENTO:",
+            default_data=self.default_date)
     
     def tratamiento_get_cantidad_id(self, stdscr=None):
         self.create_view(stdscr=stdscr,

@@ -198,6 +198,8 @@ class consulLayoutBase(object):
         stdscr.refresh()
         self.view.refresh()
 
+        return self.view
+
 
     
     def run(self, stdscr):

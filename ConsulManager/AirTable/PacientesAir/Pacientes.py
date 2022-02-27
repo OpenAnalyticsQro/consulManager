@@ -45,6 +45,15 @@ class PacientesAir(object):
         except Exception as e:
             log.error(f"{self.__class__.show_all.__qualname__}: {e}")
 
+    def get_paciente_from_id(self, record_id=None):
+        if record_id is None:
+            return None
+        
+        for paciente in self.__pacientes_list:
+            if record_id == paciente["id"]:
+                return paciente["data"]
+        return None
+
     def show_all(self):
         try:
             index = 0
@@ -102,8 +111,8 @@ class PacientesAir(object):
         pacientes_str = paciente.upper()
         # paciente_words = WORDS_REGEX.findall(pacientes_str)
 
-        print(f"name regex: {self.__get_name_regex_from_str(paciente=pacientes_str)}")
-        print(f"phone regex {self.__get_phone_regex_from_str(paciente=pacientes_str)}")
+        # print(f"name regex: {self.__get_name_regex_from_str(paciente=pacientes_str)}")
+        # print(f"phone regex {self.__get_phone_regex_from_str(paciente=pacientes_str)}")
 
         name_reg_str = self.__get_name_regex_from_str(paciente=pacientes_str)
         if name_reg_str != "":
@@ -171,9 +180,9 @@ class PacientesAir(object):
 
 if __name__ == "__main__":
     pacientes = PacientesAir()
-    pacientes.show_all()
-    pacientes.create_paciente(name="luis hirvin", apellidos="velasco", telefono="3321477452")
-    # pacientes.update_pacientes_list()
-    # x_list = pacientes.find_paciente("442274")
-    # for item in x_list:
-    #     print(item)
+    # pacientes.show_all()
+    # pacientes.create_paciente(name="luis hirvin", apellidos="velasco", telefono="3321477452")
+    pacientes.update_pacientes_list()
+    x_list = pacientes.find_paciente("diana flo")
+    for item in x_list:
+        print(item)

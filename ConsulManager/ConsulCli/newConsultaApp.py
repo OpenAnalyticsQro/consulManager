@@ -2,6 +2,7 @@ from ConsulManager.ConsulCli.ConsulLayoutBase import consulLayoutBase, INITIAL_S
 from ConsulManager.ConsulCli import DINAMIC_LIST_AIR, LIST_MODE, DATE_PICKER, DINAMIC_LIST, CONFIRM_PICKER, FLOAT_NUMBER
 from ConsulManager.AirTable import PAGOS_ESTATUS_LIST, VALID_CUENTAS_LIST, FACTURA_STATUS_LIST, DENTISTAS_LIST
 from ConsulManager.AirTable.PacientesAir.Pacientes import PacientesAir
+from ConsulManager.AirTable.Tratamientos.TratamientosManagerAir import TratamientoManagerAir
 from ConsulManager.ConsulCli.newCobroApp import newCobroApp
 from ConsulManager.ConsulCli.newPagoApp import newPagoApp
 from ConsulManager.ConsulCli.newPacienteApp import newPacienteApp
@@ -10,10 +11,17 @@ from ConsulManager.ConsulCli.newTratamientoApp import newTratamientoApp
 class newConsultaApp(consulLayoutBase):
     def __init__(self,init_state=INITIAL_STATE, debug_mode=False):
         super().__init__(init_state, debug_mode)
+
+        # add tables
         self.__pacientes_table = PacientesAir()
         self.__pacientes_table.update_pacientes_list()
         self.function_call = self.__pacientes_table.find_paciente
+
+        self.__tratamientos_table = TratamientoManagerAir()
+
         self.new_paciente = "<< NUEVO PACIENTE >>"
+        
+
 
     def set_state_machine(self):
         self.state_machine = {
@@ -95,20 +103,60 @@ class newConsultaApp(consulLayoutBase):
         return True
 
     def consulta_tratamiento_id(self, stdscr=None):
-        self.create_view(stdscr=stdscr,
-                    data = ["<< NUEVO TRATAMIENTO >>", "<< SELECIONAR DENTISTA >>"],
-                    mode=CONFIRM_PICKER,
-                    prompt_test="[NUEVA CONSULTA] Desea Agregar un nuevo TRATAMIENTO:",
-                    default_text=None,
-                    default_data= None,
-                    generate_list_func=None)
+        print(f"se establece aqui paciente: {self.data['paciente']}")
+        paciente = self.__pacientes_table.get_paciente_from_id(record_id=self.data['paciente'])
+        print(f"My paciente es: {paciente}")
+
+        self.__tratamientos_table.update_paciente_activo(paciente)
+        lista_tratamientos_actived = self.__tratamientos_table.get_active_tratamientos()
+        print(lista_tratamientos_actived)
+
+        if lista_tratamientos_actived == []:
+
+            # TODO precargar los datos
+            self.create_view(stdscr=stdscr,
+                        data = ["<< NUEVO TRATAMIENTO >>", "<< SELECIONAR DENTISTA >>"],
+                        mode=CONFIRM_PICKER,
+                        prompt_test="[NUEVA CONSULTA] Desea Agregar un nuevo TRATAMIENTO:",
+                        default_text=None,
+                        default_data= None,
+                        generate_list_func=None)
+        else:
+            self.state_machine[self.current_state][KEY_EVENT] = self.process_previous_tratamientos_app
+            view = self.create_view(stdscr=stdscr,
+                            mode=DINAMIC_LIST_AIR,
+                            prompt_test="[NUEVA CONSULTA] Selecione Tratamiento activo:",
+                            default_text="<< selecione el tratamiento >>",
+                            default_data="<< NUEVO TRATAMIENTO >>",
+                            generate_list_func=self.__tratamientos_table.get_active_tratamientos
+                            )
+            view.process_key(key=' ')
+
+    def process_previous_tratamientos_app(self, choice=None):
+        if choice is None:
+            return False
+        #print("me sali")
+        #print(choice)
+
+        if choice == 0:
+            tratamiento_app = newTratamientoApp(default_date=self.data["fecha"])
+            tratamiento_app.run(stdscr=self.stdscr)
+            self.data[self.state_machine[self.current_state]["KEY"]] = tratamiento_app.get_data()
+        # select previous tratamiento
+        else:
+            #self.data[self.state_machine[self.current_state]["KEY"]] = [choice]
+            self.data[self.state_machine[self.current_state]["KEY"]] = [{'tratamiento_id_list': choice}]
+
+        self.current_state = self.state_machine[self.current_state][NEXT_STATE]
+        return True
     
     def start_tratamientos_app(self, choice=None):
         if choice is None:
             return False
 
         if choice is True:
-            tratamiento_app = newTratamientoApp()
+            tratamiento_app = newTratamientoApp(default_date=self.data["fecha"])
+            # cobro_app = newCobroApp(default_date=self.data["fecha"])
             tratamiento_app.run(stdscr=self.stdscr)
             self.data[self.state_machine[self.current_state]["KEY"]] = tratamiento_app.get_data()
         else:

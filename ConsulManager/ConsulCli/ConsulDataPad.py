@@ -894,6 +894,7 @@ class DataPadDinamicListAir(DataPadBase):
         self.update_data_screen()
         self.refresh_data()
 
+
     def update_data_screen(self):
         self.pad.clear()
         

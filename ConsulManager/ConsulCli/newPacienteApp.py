@@ -60,7 +60,7 @@ class newPacienteApp(consulLayoutBase):
 
     def final_state(self, stdscr=None):
         self.create_view(stdscr=stdscr,
-                    data_list=None,
+                    data=None,
                     mode=CONFIRM_PICKER,
                     prompt_test="[NUEVO PACIENTE] Desea crear al nuevo PACIENTE?:",
                     default_text=None,

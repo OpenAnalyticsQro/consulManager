@@ -35,15 +35,32 @@ if __name__ == '__main__':
         log.info(f"Week Id: {week_id}")
 
         # tratamientos
+        print(consulta)
         if consulta["tratatamiento_id"] is not None:
             tratamientos_id_list = []
+
+            # todo es solo una lista con el id hay que modificarlo
+
+            # if type(consulta["tratatamiento_id"]) != list:
             for tratamiento in consulta["tratatamiento_id"]:
-                tratamiento["tratamiento"] = [tratamiento["tratamiento"]]
-                print(tratamiento)
-                tratamientos_table = TratamientoManagerAir()
-                record = tratamientos_table.create_tratamiento(**tratamiento)
-                log.info(f"    - generating new Tratamiento id: {record['id']}")
-                tratamientos_id_list.append(record['id'])
+                print(f"{tratamiento=}")
+                if tratamiento.get("tratamiento_id_list") is None:
+                    tratamiento["tratamiento"] = [tratamiento["tratamiento"]]
+                    print(tratamiento)
+
+                    # date
+                    valid_date = re.compile(r'(\d\d)\/(\d\d)\/(\d\d\d\d)')
+                    (day, month, year) = valid_date.match(string=tratamiento['fecha']).groups()
+                    tratamiento['fecha'] = get_valid_date(year=int(year), month=int(month), day=int(day))
+
+
+
+                    tratamientos_table = TratamientoManagerAir()
+                    record = tratamientos_table.create_tratamiento(**tratamiento)
+                    log.info(f"    - generating new Tratamiento id: {record['id']}")
+                    tratamientos_id_list.append(record['id'])
+                else:
+                    tratamientos_id_list.append(tratamiento["tratamiento_id_list"])
             consulta['tratatamiento_id'] = tratamientos_id_list
 
 
