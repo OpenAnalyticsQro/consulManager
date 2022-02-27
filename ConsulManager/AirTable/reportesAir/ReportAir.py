@@ -10,10 +10,8 @@ from ConsulManager.AirTable import (
 )
 from ConsulManager.AirTable.Cobros import FIELD as FD
 from ConsulManager.AirTable.Utilities import Validators
-from PyInquirer import prompt
-from examples import custom_style_3
 from ConsulManager.AirTable.Utilities.Fechas import get_week, get_valid_date
-from ConsulManager.ConsulCli.validator import dateValidator, MontoValidator
+#from ConsulManager.ConsulCli.validator import dateValidator, MontoValidator
 from ConsulManager.AirTable import PAGOS_ESTATUS_LIST, VALID_CUENTAS_LIST
 import re
 
