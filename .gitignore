@@ -38,3 +38,4 @@ consulManager.egg-info/dependency_links.txt
 consulManager.egg-info/PKG-INFO
 consulManager.egg-info/SOURCES.txt
 consulManager.egg-info/top_level.txt
+.qt_for_python

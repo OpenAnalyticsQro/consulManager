@@ -57,7 +57,11 @@ background:none;
 
 QFrame#dataFrame
 {
-background:blue;
+background:None;
+
+border-bottom-width: 1px;
+border-style: solid;
+border-bottom-color: #E4E1EC;
 }
 
 QFrame#dataButtonFrame
@@ -82,6 +86,36 @@ font-weight: 500;
 font-size: 14px;
 line-height: 20px;
 }
+
+QScrollArea#scrollAreaList
+{
+background:transparent;
+border:None;
+}
+
+QScrollBar:vertical
+{
+background:None;
+border:None;
+width: 0px;
+}
+
+QWidget#listScroll
+{
+background:transparent;
+
+}
+
+QFrame#itemFrame
+{
+background:green;
+}
+
+QLabel
+{
+background:None;
+}
+
 </string>
   </property>
   <widget class="QFrame" name="FrameBase">
@@ -153,12 +187,229 @@ line-height: 20px;
        </property>
        <item>
         <widget class="QFrame" name="dataFrame">
+         <property name="maximumSize">
+          <size>
+           <width>245</width>
+           <height>334</height>
+          </size>
+         </property>
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
          </property>
          <property name="frameShadow">
           <enum>QFrame::Raised</enum>
          </property>
+         <widget class="QScrollArea" name="scrollAreaList">
+          <property name="geometry">
+           <rect>
+            <x>3</x>
+            <y>9</y>
+            <width>239</width>
+            <height>331</height>
+           </rect>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>239</width>
+            <height>331</height>
+           </size>
+          </property>
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="listScroll">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>239</width>
+             <height>386</height>
+            </rect>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_3">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QLabel" name="label">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>48</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>option 1</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_4">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>48</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>option 2</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_5">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>48</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>option 3</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_3">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>48</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>option 4</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_8">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>48</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>option 4</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_6">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>48</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>option 5</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_7">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>48</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>option 6 jjjjjjjjjjjjjjjjjjjjjjj</string>
+              </property>
+              <property name="textFormat">
+               <enum>Qt::PlainText</enum>
+              </property>
+              <property name="scaledContents">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_2">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>48</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>option 7</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QFrame" name="itemFrame">
+              <property name="enabled">
+               <bool>true</bool>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>239</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_4">
+               <property name="spacing">
+                <number>0</number>
+               </property>
+               <property name="leftMargin">
+                <number>0</number>
+               </property>
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
+                <number>0</number>
+               </property>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>38</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
+         </widget>
         </widget>
        </item>
        <item>
@@ -262,6 +513,9 @@ line-height: 20px;
            </property>
            <property name="text">
             <string>Nueva</string>
+           </property>
+           <property name="indent">
+            <number>0</number>
            </property>
            <property name="textInteractionFlags">
             <set>Qt::NoTextInteraction</set>
