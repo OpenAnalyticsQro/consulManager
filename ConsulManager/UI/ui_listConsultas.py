@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'listConsultasuYlvyL.ui'
+## Form generated from reading UI file 'listConsultasgcxyDn.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.2.3
 ##
@@ -15,8 +15,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QFrame, QLabel, QScrollArea,
-    QSizePolicy, QSpacerItem, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QFrame, QLabel, QLineEdit,
+    QScrollArea, QSizePolicy, QSpacerItem, QVBoxLayout,
+    QWidget)
 
 class Ui_consulList(object):
     def setupUi(self, consulList):
@@ -77,10 +78,11 @@ class Ui_consulList(object):
 "font-size: 26px;\n"
 "}\n"
 "\n"
-"QLabel#labelButton {\n"
+"QLineEdit#searchEdit {\n"
 "color:#5355A8;\n"
 "font-family: 'Roboto';\n"
-"background: none;\n"
+"background: transparent;\n"
+"border:none;\n"
 "font-weight: 500;\n"
 "font-size: 14px;\n"
 "line-height: 20px;\n"
@@ -95,10 +97,10 @@ class Ui_consulList(object):
 "QScrollBar:vertical\n"
 "{\n"
 "background:None;\n"
-"border:None;\n"
+"bord"
+                        "er:None;\n"
 "width: 0px;\n"
-""
-                        "}\n"
+"}\n"
 "\n"
 "QWidget#listScroll\n"
 "{\n"
@@ -108,7 +110,7 @@ class Ui_consulList(object):
 "\n"
 "QFrame#itemFrame\n"
 "{\n"
-"background:green;\n"
+"background:none;\n"
 "}\n"
 "\n"
 "QLabel\n"
@@ -148,62 +150,12 @@ class Ui_consulList(object):
         self.scrollAreaList.setWidgetResizable(True)
         self.listScroll = QWidget()
         self.listScroll.setObjectName(u"listScroll")
-        self.listScroll.setGeometry(QRect(0, 0, 239, 386))
+        self.listScroll.setGeometry(QRect(0, 0, 239, 331))
         self.listScroll.setMaximumSize(QSize(16777215, 16777215))
-        self.verticalLayout_3 = QVBoxLayout(self.listScroll)
-        self.verticalLayout_3.setSpacing(0)
-        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
-        self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
-        self.label = QLabel(self.listScroll)
-        self.label.setObjectName(u"label")
-        self.label.setMinimumSize(QSize(0, 48))
-
-        self.verticalLayout_3.addWidget(self.label)
-
-        self.label_4 = QLabel(self.listScroll)
-        self.label_4.setObjectName(u"label_4")
-        self.label_4.setMinimumSize(QSize(0, 48))
-
-        self.verticalLayout_3.addWidget(self.label_4)
-
-        self.label_5 = QLabel(self.listScroll)
-        self.label_5.setObjectName(u"label_5")
-        self.label_5.setMinimumSize(QSize(0, 48))
-
-        self.verticalLayout_3.addWidget(self.label_5)
-
-        self.label_3 = QLabel(self.listScroll)
-        self.label_3.setObjectName(u"label_3")
-        self.label_3.setMinimumSize(QSize(0, 48))
-
-        self.verticalLayout_3.addWidget(self.label_3)
-
-        self.label_8 = QLabel(self.listScroll)
-        self.label_8.setObjectName(u"label_8")
-        self.label_8.setMinimumSize(QSize(0, 48))
-
-        self.verticalLayout_3.addWidget(self.label_8)
-
-        self.label_6 = QLabel(self.listScroll)
-        self.label_6.setObjectName(u"label_6")
-        self.label_6.setMinimumSize(QSize(0, 48))
-
-        self.verticalLayout_3.addWidget(self.label_6)
-
-        self.label_7 = QLabel(self.listScroll)
-        self.label_7.setObjectName(u"label_7")
-        self.label_7.setMinimumSize(QSize(0, 48))
-        self.label_7.setTextFormat(Qt.PlainText)
-        self.label_7.setScaledContents(False)
-
-        self.verticalLayout_3.addWidget(self.label_7)
-
-        self.label_2 = QLabel(self.listScroll)
-        self.label_2.setObjectName(u"label_2")
-        self.label_2.setMinimumSize(QSize(0, 48))
-
-        self.verticalLayout_3.addWidget(self.label_2)
-
+        self.optionsLayout = QVBoxLayout(self.listScroll)
+        self.optionsLayout.setSpacing(0)
+        self.optionsLayout.setObjectName(u"optionsLayout")
+        self.optionsLayout.setContentsMargins(0, 0, 0, 0)
         self.itemFrame = QFrame(self.listScroll)
         self.itemFrame.setObjectName(u"itemFrame")
         self.itemFrame.setEnabled(True)
@@ -215,11 +167,11 @@ class Ui_consulList(object):
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
         self.verticalLayout_4.setContentsMargins(0, 0, 0, 0)
 
-        self.verticalLayout_3.addWidget(self.itemFrame)
+        self.optionsLayout.addWidget(self.itemFrame)
 
         self.verticalSpacer = QSpacerItem(20, 38, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
-        self.verticalLayout_3.addItem(self.verticalSpacer)
+        self.optionsLayout.addItem(self.verticalSpacer)
 
         self.scrollAreaList.setWidget(self.listScroll)
 
@@ -245,13 +197,13 @@ class Ui_consulList(object):
         self.iconLabel.setMinimumSize(QSize(40, 40))
         self.iconLabel.setMaximumSize(QSize(40, 40))
         self.iconLabel.setAlignment(Qt.AlignCenter)
-        self.labelButton = QLabel(self.dataButtonFrame)
-        self.labelButton.setObjectName(u"labelButton")
-        self.labelButton.setGeometry(QRect(48, 10, 160, 20))
-        self.labelButton.setMinimumSize(QSize(35, 20))
-        self.labelButton.setMaximumSize(QSize(160, 20))
-        self.labelButton.setIndent(0)
-        self.labelButton.setTextInteractionFlags(Qt.NoTextInteraction)
+        self.searchEdit = QLineEdit(self.dataButtonFrame)
+        self.searchEdit.setObjectName(u"searchEdit")
+        self.searchEdit.setGeometry(QRect(40, 10, 160, 20))
+        self.searchEdit.setMinimumSize(QSize(35, 20))
+        self.searchEdit.setMaximumSize(QSize(160, 20))
+        self.searchEdit.setCursorPosition(0)
+        self.searchEdit.setReadOnly(True)
 
         self.verticalLayout_2.addWidget(self.buttonFrame)
 
@@ -266,15 +218,7 @@ class Ui_consulList(object):
 
     def retranslateUi(self, consulList):
         consulList.setWindowTitle(QCoreApplication.translate("consulList", u"Form", None))
-        self.label.setText(QCoreApplication.translate("consulList", u"option 1", None))
-        self.label_4.setText(QCoreApplication.translate("consulList", u"option 2", None))
-        self.label_5.setText(QCoreApplication.translate("consulList", u"option 3", None))
-        self.label_3.setText(QCoreApplication.translate("consulList", u"option 4", None))
-        self.label_8.setText(QCoreApplication.translate("consulList", u"option 4", None))
-        self.label_6.setText(QCoreApplication.translate("consulList", u"option 5", None))
-        self.label_7.setText(QCoreApplication.translate("consulList", u"option 6 jjjjjjjjjjjjjjjjjjjjjjj", None))
-        self.label_2.setText(QCoreApplication.translate("consulList", u"option 7", None))
         self.iconLabel.setText(QCoreApplication.translate("consulList", u"\ue145", None))
-        self.labelButton.setText(QCoreApplication.translate("consulList", u"Nueva", None))
+        self.searchEdit.setText(QCoreApplication.translate("consulList", u"Nueva", None))
     # retranslateUi
 

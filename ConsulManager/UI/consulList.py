@@ -1,7 +1,8 @@
 import sys
 
 from ConsulManager.UI.ui_listConsultas import Ui_consulList
-from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QGraphicsDropShadowEffect
+from ConsulManager.UI.ui_optionListWidget import Ui_optionListWidget
+from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QGraphicsDropShadowEffect, QLabel
 from PySide6.QtCore import QFile, QPropertyAnimation, QEasingCurve, Signal, QSize, QParallelAnimationGroup, QPoint, QRect, Property, QSequentialAnimationGroup
 from PySide6.QtGui import QColor
 from PySide6.QtCore import Qt, Signal
@@ -101,18 +102,30 @@ class ConsulWidget(QWidget):
         animation_group.addAnimation(animation)
         return animation_group
 
+# Option List Widget
+class optionListWideget(ConsulWidget):
+    def __init__(self, parent=None, x=0, y=0):
+        super().__init__(parent, x, y)
+
+    def initWidgets(self):
+        self.__main = Ui_consulList()
+        self.__main.setupUi(self)
 
 # ConsulList Widget
 class ConsulList(ConsulWidget):
     expand_widget = Signal()
     collapse_widget = Signal()
     search_mode = Signal()
-    def __init__(self, parent=None, x=None, y=None):
+    clear_options = Signal()
+    def __init__(self, parent=None, x=0, y=0):
         super().__init__(parent, x=x, y=y)
 
         # internal variables
         self.__is_extended = False
         self.__search_mode_enable = False
+        self.__options_list = []
+        # remove this
+        self.__set_options_list(recv_list=["hirvin","diana", "x2", "x3", "x4", "x5", "x6", "x7"])
 
     def initWidgets(self):
         self.__listW = Ui_consulList()
@@ -120,13 +133,15 @@ class ConsulList(ConsulWidget):
 
     def initSlots(self):
         self.__listW.buttonFrame.mousePressEvent = self.buttonFramemousePressEvent
-        # self.__listW.labelButton.focusInEvent = self.labelButtonFocusInEvent
-        self.__listW.labelButton.focusOutEvent = self.labelButtonFocusOutEvent
+        self.__listW.searchEdit.mousePressEvent = self.buttonFramemousePressEvent
+        # self.__listW.searchEdit.focusOutEvent = self.searchEditFocusOutEvent
+        self.__listW.searchEdit.editingFinished.connect(self.searchEditFocusOutEvent)
         self.__listW.dataFrame.mousePressEvent = self.dataFramemousePressEvent
 
         self.expand_widget.connect(self.__expand_widget)
         self.collapse_widget.connect(self.__collapse_widget)
         self.search_mode.connect(self.__search_mode)
+        self.clear_options.connect(self.__clear_options_list)
 
     def initConfig(self):
         # list Widget
@@ -166,6 +181,27 @@ class ConsulList(ConsulWidget):
                                                                     animation=self.__collapse_animations)
 
     # itnernal functions
+    def __clear_options_list(self):
+        for w in self.__options_list:
+            print(f"Cleanig: {w}")
+            w.deleteLater()
+        self.__options_list.clear()
+
+    def __set_options_list(self, recv_list=[]):
+        for index, option in enumerate(recv_list):
+            tmp_w = self.__create_option_widget(text=option, index=index)
+            self.__options_list.append(tmp_w)
+            # self.__listW.optionsLayout.addWidget(label,0)
+            self.__listW.optionsLayout.insertWidget(index, tmp_w)
+
+    def __create_option_widget(self, text="", index=0):
+        label = QLabel(self.__listW.listScroll)
+        label.setObjectName(f"label{index}")
+        label.setMinimumSize(QSize(0, 48))
+        label.setText(f"{text}{index}")
+        return label
+
+
     def buttonFramemousePressEvent(self, event):
         if self.__search_mode_enable is False:
             self.setFocus()
@@ -174,7 +210,7 @@ class ConsulList(ConsulWidget):
         pass
 
 
-    def labelButtonFocusInEvent(self, event):
+    def searchEditFocusInEvent(self, event):
         if self.__is_extended is False:
             return False
 
@@ -184,9 +220,11 @@ class ConsulList(ConsulWidget):
         print("enable")
         self.__search_mode_enable = True
 
-    def labelButtonFocusOutEvent(self, event):
-        self.__search_mode_enable = False
-        self.collapse_widget.emit()
+    def searchEditFocusOutEvent(self):
+        if self.__search_mode_enable is True:
+            print("Edited comple")
+            self.__search_mode_enable = False
+            self.collapse_widget.emit()
 
     def __expand_widget(self):
         # if self.__is_extended:
@@ -195,7 +233,9 @@ class ConsulList(ConsulWidget):
             print("Expanded")
             self.__is_extended = True
             self.__expand_animation.start()
-            self.__listW.labelButton.setTextInteractionFlags(Qt.TextBrowserInteraction|Qt.TextEditorInteraction)
+            # self.__listW.searchEdit.setTextInteractionFlags(Qt.TextBrowserInteraction|Qt.TextEditorInteraction)
+            self.__listW.searchEdit.setReadOnly(False)
+            self.__listW.searchEdit.setCursorPosition(0)
 
             # enable search mode
             self.__search_mode_enable = True
@@ -205,13 +245,18 @@ class ConsulList(ConsulWidget):
         if self.__search_mode_enable is False:
             print("Collapse")
             self.__is_extended = False
-            self.__listW.labelButton.setTextInteractionFlags(Qt.NoTextInteraction)
-            self.__listW.labelButton.setText("Nueva")
+            # self.__listW.searchEdit.setTextInteractionFlags(Qt.NoTextInteraction)
+            self.__listW.searchEdit.setReadOnly(True)
+            self.__listW.searchEdit.setCursorPosition(0)
+            self.__listW.searchEdit.setText("Nueva")
             self.__collapse_animations.start()
 
+            # clean all options
+            self.clear_options.emit()
+
     def __search_mode(self):
-        self.__listW.labelButton.setFocus()
-        self.__listW.labelButton.setText("")
+        self.__listW.searchEdit.setFocus()
+        self.__listW.searchEdit.setText("")
         self.__search_mode_enable = True
 
 
@@ -228,6 +273,7 @@ class ConsulList(ConsulWidget):
     
     def focusOutEvent(self, event):
         self.collapse_widget.emit()
+        
 
 
 

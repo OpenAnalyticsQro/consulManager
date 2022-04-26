@@ -46,6 +46,7 @@ border-radius: 16px;
 QFrame#mainFrame
 {
 background:rgba(83, 85, 168, 20);
+
 border-radius: 16px;
 
 }
@@ -78,10 +79,11 @@ font-style: normal;
 font-size: 26px;
 }
 
-QLabel#labelButton {
+QLineEdit#searchEdit {
 color:#5355A8;
 font-family: 'Roboto';
-background: none;
+background: transparent;
+border:none;
 font-weight: 500;
 font-size: 14px;
 line-height: 20px;
@@ -108,7 +110,7 @@ background:transparent;
 
 QFrame#itemFrame
 {
-background:green;
+background:none;
 }
 
 QLabel
@@ -223,7 +225,7 @@ background:None;
              <x>0</x>
              <y>0</y>
              <width>239</width>
-             <height>386</height>
+             <height>331</height>
             </rect>
            </property>
            <property name="maximumSize">
@@ -232,7 +234,7 @@ background:None;
              <height>16777215</height>
             </size>
            </property>
-           <layout class="QVBoxLayout" name="verticalLayout_3">
+           <layout class="QVBoxLayout" name="optionsLayout">
             <property name="spacing">
              <number>0</number>
             </property>
@@ -248,116 +250,6 @@ background:None;
             <property name="bottomMargin">
              <number>0</number>
             </property>
-            <item>
-             <widget class="QLabel" name="label">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>48</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>option 1</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_4">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>48</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>option 2</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_5">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>48</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>option 3</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_3">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>48</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>option 4</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_8">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>48</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>option 4</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_6">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>48</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>option 5</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_7">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>48</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>option 6 jjjjjjjjjjjjjjjjjjjjjjj</string>
-              </property>
-              <property name="textFormat">
-               <enum>Qt::PlainText</enum>
-              </property>
-              <property name="scaledContents">
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_2">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>48</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>option 7</string>
-              </property>
-             </widget>
-            </item>
             <item>
              <widget class="QFrame" name="itemFrame">
               <property name="enabled">
@@ -490,10 +382,10 @@ background:None;
             <set>Qt::AlignCenter</set>
            </property>
           </widget>
-          <widget class="QLabel" name="labelButton">
+          <widget class="QLineEdit" name="searchEdit">
            <property name="geometry">
             <rect>
-             <x>48</x>
+             <x>40</x>
              <y>10</y>
              <width>160</width>
              <height>20</height>
@@ -514,11 +406,11 @@ background:None;
            <property name="text">
             <string>Nueva</string>
            </property>
-           <property name="indent">
+           <property name="cursorPosition">
             <number>0</number>
            </property>
-           <property name="textInteractionFlags">
-            <set>Qt::NoTextInteraction</set>
+           <property name="readOnly">
+            <bool>true</bool>
            </property>
           </widget>
          </widget>
