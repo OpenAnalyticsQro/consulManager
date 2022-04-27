@@ -12,6 +12,11 @@ EXPAND_TO_LEFT = 0
 EXPAND_TO_RIGHT = 1
 EXPAND_TO_LEFT_UP = 2
 
+# CONSTANS MESSAGE
+NEW_PX_MSG = "Nuevo Paciente"
+NEW_PHONE_MSG = "###"
+
+
 # Base Widget
 class ConsulWidget(QWidget):
     def __init__(self, parent=None, x=0, y=0):
@@ -41,7 +46,7 @@ class ConsulWidget(QWidget):
 
         self.move(x, y)
 
-    def initSlots():
+    def initSlots(self):
         pass
 
     def initWidgets(self):
@@ -103,13 +108,20 @@ class ConsulWidget(QWidget):
         return animation_group
 
 # Option List Widget
-class optionListWideget(ConsulWidget):
-    def __init__(self, parent=None, x=0, y=0):
+class optionListWidget(ConsulWidget):
+    def __init__(self, parent=None, x=0, y=0, name=NEW_PX_MSG, phone=NEW_PHONE_MSG):
+        self.__name = name
+        self.__phone = phone
         super().__init__(parent, x, y)
 
+
     def initWidgets(self):
-        self.__main = Ui_consulList()
+        self.__main = Ui_optionListWidget()
         self.__main.setupUi(self)
+    
+    def initConfig(self):
+        self.__main.optionName.setText(self.__name)
+        self.__main.optionPhone.setText(self.__phone)
 
 # ConsulList Widget
 class ConsulList(ConsulWidget):
@@ -117,6 +129,7 @@ class ConsulList(ConsulWidget):
     collapse_widget = Signal()
     search_mode = Signal()
     clear_options = Signal()
+    set_options_list = Signal(list)
     def __init__(self, parent=None, x=0, y=0):
         super().__init__(parent, x=x, y=y)
 
@@ -125,7 +138,7 @@ class ConsulList(ConsulWidget):
         self.__search_mode_enable = False
         self.__options_list = []
         # remove this
-        self.__set_options_list(recv_list=["hirvin","diana", "x2", "x3", "x4", "x5", "x6", "x7"])
+        self.set_options_list.emit(["hirvin","diana", "x2", "x3", "x4", "x5", "x6", "x7"])
 
     def initWidgets(self):
         self.__listW = Ui_consulList()
@@ -134,14 +147,14 @@ class ConsulList(ConsulWidget):
     def initSlots(self):
         self.__listW.buttonFrame.mousePressEvent = self.buttonFramemousePressEvent
         self.__listW.searchEdit.mousePressEvent = self.buttonFramemousePressEvent
-        # self.__listW.searchEdit.focusOutEvent = self.searchEditFocusOutEvent
-        self.__listW.searchEdit.editingFinished.connect(self.searchEditFocusOutEvent)
         self.__listW.dataFrame.mousePressEvent = self.dataFramemousePressEvent
 
         self.expand_widget.connect(self.__expand_widget)
         self.collapse_widget.connect(self.__collapse_widget)
         self.search_mode.connect(self.__search_mode)
         self.clear_options.connect(self.__clear_options_list)
+        self.set_options_list.connect(self.__set_options_list)
+        self.__listW.searchEdit.editingFinished.connect(self.searchEditFocusOutEvent)
 
     def initConfig(self):
         # list Widget
@@ -183,23 +196,18 @@ class ConsulList(ConsulWidget):
     # itnernal functions
     def __clear_options_list(self):
         for w in self.__options_list:
-            print(f"Cleanig: {w}")
             w.deleteLater()
         self.__options_list.clear()
 
     def __set_options_list(self, recv_list=[]):
         for index, option in enumerate(recv_list):
-            tmp_w = self.__create_option_widget(text=option, index=index)
+            tmp_w = self.__create_option_widget(name=option, index=index)
             self.__options_list.append(tmp_w)
             # self.__listW.optionsLayout.addWidget(label,0)
             self.__listW.optionsLayout.insertWidget(index, tmp_w)
 
-    def __create_option_widget(self, text="", index=0):
-        label = QLabel(self.__listW.listScroll)
-        label.setObjectName(f"label{index}")
-        label.setMinimumSize(QSize(0, 48))
-        label.setText(f"{text}{index}")
-        return label
+    def __create_option_widget(self, name="", index=0):
+        return optionListWidget(self.__listW.listScroll, name=name)
 
 
     def buttonFramemousePressEvent(self, event):
@@ -249,6 +257,7 @@ class ConsulList(ConsulWidget):
             self.__listW.searchEdit.setReadOnly(True)
             self.__listW.searchEdit.setCursorPosition(0)
             self.__listW.searchEdit.setText("Nueva")
+            self.__listW.iconLabel.setText("")
             self.__collapse_animations.start()
 
             # clean all options
@@ -257,6 +266,7 @@ class ConsulList(ConsulWidget):
     def __search_mode(self):
         self.__listW.searchEdit.setFocus()
         self.__listW.searchEdit.setText("")
+        self.__listW.iconLabel.setText("")
         self.__search_mode_enable = True
 
 
@@ -284,6 +294,9 @@ class MainWindow(QMainWindow):
         super(MainWindow, self).__init__()
         self.consulLisW = ConsulList(self, x=0, y=0)
         self.resize(800,800)
+
+        # remove this line
+        self.option = optionListWidget(self, 0, 500)
 
         self.setStyleSheet(u"QWidget\n"
 "{\n"
