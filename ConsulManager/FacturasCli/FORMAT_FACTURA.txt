@@ -1,0 +1,8 @@
+NOMBRE o razon social: {NAME}
+RFC:    {RFC}
+CORREO: {CORREO}
+MONTO: ${MONTO}
+FORMA DE PAGO: {METHOD_PAGO}
+DOMICILIO FISCAL: {ADRRES}
+CODIGO POSTAL: {CP}
+--------------------------------------------------------------------------------------------------
