@@ -58,7 +58,7 @@ class FacturasCli(object):
         formula = match({"FACTURA":"PENDIENTE"})
         facturas_list = []
         try:
-            for item in self.__table_cobros.all(formula=formula):
+            for item in self.__table_cobros.all(formula=formula, sort=["FECHA"]):
                 # print(item)
                 record = item['fields']['PACIENTE'][0]
                 paciente = self.get_paciente_from_record(record=record)
