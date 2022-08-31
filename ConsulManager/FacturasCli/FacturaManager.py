@@ -160,14 +160,42 @@ class FacturaManager(object):
 
         return self.__rfc_folder_list.get(rfc)
 
-
-
-
-
-
-
-
-
 if __name__ == "__main__":
-    f_manager = FacturaManager()
-    f_manager.arrange_facturas(f_path=FACTURAS_FOLDER)
+    # small interface to get the files
+    import tkinter
+    from tkinter import filedialog
+    from tkinter import messagebox
+
+    main_window = tkinter.Tk()
+    main_window.geometry("400x300")
+    main_window.title("Factura Manager")
+
+    def openFile(e=None):
+        global my_file
+        cwd = Path(__file__).parent
+        my_file = filedialog.askdirectory(initialdir=cwd)
+        e.insert(0, my_file)
+
+    def ordenar(path=None):
+        if path is None:
+            messagebox.showerror("error", "Invalid Path!")
+            return True
+        if path is "":
+            messagebox.showerror("error", "Invalid Path!")
+            return True
+
+        _file = Path(path)
+        if _file.exists() is True and _file is not None:
+            f_manager = FacturaManager()
+            f_manager.arrange_facturas(f_path=_file)
+            messagebox.showinfo("info", "Ordenamiento Listo!")
+        return True
+
+    # input data
+    l_input = tkinter.Label(main_window, text="Facturas: ").grid(column=0, row=0)
+    E_input = tkinter.Entry(main_window, text="", width=50)
+    E_input.grid(column=1, row=0)
+    b_input = tkinter.Button(main_window, text="...", command=lambda: openFile(E_input)).grid(column=2, row=0)
+
+    b_order = tkinter.Button(main_window, text="Ordenar", command=lambda:ordenar(E_input.get())).grid(column=0, row=1)
+    main_window.mainloop()
