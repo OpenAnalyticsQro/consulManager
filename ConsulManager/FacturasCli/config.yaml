@@ -1,3 +1,6 @@
 FACTURA_CLI:
+  logger:
+    name: "FACT"
+    level: "debug"
   config_files:
     - FacturasCli : Factura/

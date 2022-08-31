@@ -1,6 +1,7 @@
 import re
 import xml.etree.ElementTree as ET
 from ConsulManager.FacturasCli.Factura import FACTURA_3_3_RECEPTOR, FACTURA_3_3_COMPLEMENTO
+from ConsulManager.FacturasCli import log
 
 class Factura3_3_Xml(object):
     def __init__(self, f_path=None) -> None:

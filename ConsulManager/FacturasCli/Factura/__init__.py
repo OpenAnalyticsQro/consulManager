@@ -1,5 +1,6 @@
 # FACTURA_3_3
 
+
 # factura 3.3 elements
 FACTURA_3_3_RECEPTOR = "Receptor"
 FACTURA_3_3_COMPLEMENTO = "Complemento"

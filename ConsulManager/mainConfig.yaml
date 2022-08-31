@@ -1,0 +1,3 @@
+mainConfig:
+  config_files:
+    - FacturasCli : FacturasCli

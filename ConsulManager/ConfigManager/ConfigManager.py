@@ -2,7 +2,8 @@ from operator import truediv
 import yaml
 from pathlib import Path
 from ConsulManager.Logger import logger as log
-from ConsulManager.ConfigManager import CONFIG_DEFINITIONS, MAIN_CONFIG_FILES, INIT_FILE_NAME, INIT_FILE_FORMAT
+from ConsulManager.ConfigManager import CONFIG_DEFINITIONS, LOGGER_CONFIG_FORMAT, MAIN_CONFIG_FILES, INIT_FILE_NAME, INIT_FILE_FORMAT
+from ConsulManager.ConfigManager import LOGGER_CONFIG, LOGGER_CONFIG_NAME, LOGGER_CONFIG_LEVEL, LOGGER_CONFIG_LEVEL_DICT, LOGGER_CONFIG_FORMAT
 
 GENERATOR_ITEMS_VETOR = {}
 
@@ -145,6 +146,7 @@ class ConfigYaml(object):
                         
                         # set definition list process
                         self.__process_list = [
+                                                self.create_logger_config,      # fucntion to create logger configuration
                                                 self.create_definitions,        # funtion to generate all constants and definitios from config file
                                                 self.create_init_file,          # function to generate init file
                                             ]
@@ -214,6 +216,33 @@ class ConfigYaml(object):
         log.warning(f"    {self.__name} -> {CONFIG_DEFINITIONS} (was not generated)")
         self.__init_file_dict[CONFIG_DEFINITIONS] = ''
         return False
+
+    def create_logger_config(self):
+        """ function to create logger configuration """
+        log.debug(f"    {self.__name} -> {LOGGER_CONFIG}")
+        loger_config = self.__main.get(LOGGER_CONFIG)
+
+        if loger_config is None:
+            log.warning(f"    {self.__name} -> {LOGGER_CONFIG} (was not generated)")
+            self.__init_file_dict[LOGGER_CONFIG] = ''
+            return False
+
+        name = loger_config.get(LOGGER_CONFIG_NAME)
+        if name is None:
+            log.warning(f"    {self.__name} -> {LOGGER_CONFIG} (was not generated: invalid Name: {name})")
+            self.__init_file_dict[LOGGER_CONFIG] = ''
+            return False
+
+        level = LOGGER_CONFIG_LEVEL_DICT.get(loger_config[LOGGER_CONFIG_LEVEL].upper() if loger_config.get(LOGGER_CONFIG_LEVEL) else None)
+        if level is None:
+            level = "INFO"
+
+        self.__init_file_dict[LOGGER_CONFIG]= LOGGER_CONFIG_FORMAT.format(name=name, level=level)
+
+        return True
+
+
+
 
     def config_files(self):
         """ read all config files"""

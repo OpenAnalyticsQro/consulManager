@@ -2,7 +2,7 @@ from glob import glob
 from pathlib import Path
 import zipfile
 import shutil
-from ConsulManager.Logger import logger as log
+from ConsulManager.FacturasCli import log
 from ConsulManager.FacturasCli.Factura.Factura3_3 import Factura3_3_Xml
 from ConsulManager.FacturasCli.Factura import FACTURA_3_3_RFC, FACTURA_3_3_NAME, FACTURA_3_3_UUID
 
