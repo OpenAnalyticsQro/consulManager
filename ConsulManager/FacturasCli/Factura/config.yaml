@@ -1,0 +1,13 @@
+FACTURA_3_3:
+  definitions:
+    factura 3.3 elements:
+      - RECEPTOR: "Receptor"
+      - COMPLEMENTO: "Complemento"
+      - COMPLEMENTO_CFDI_REGISTRO_FISCAL: "CFDIRegistroFiscal"
+      - TIMBRE_FISCAL_DIGITAL: "TimbreFiscalDigital"
+
+    factura 3.3 fields:
+      - RFC: "Rfc"
+      - NAME: "Nombre"
+      - REGIMEN_FISCAL: "RegimenFiscal"
+      - UUID: "UUID"

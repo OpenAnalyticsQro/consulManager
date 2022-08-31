@@ -1,0 +1,3 @@
+FACTURA_CLI:
+  config_files:
+    - FacturasCli : Factura/
