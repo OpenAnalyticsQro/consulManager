@@ -174,13 +174,14 @@ if __name__ == "__main__":
         global my_file
         cwd = Path(__file__).parent
         my_file = filedialog.askdirectory(initialdir=cwd)
+        e.delete(0, 'end')
         e.insert(0, my_file)
 
     def ordenar(path=None):
         if path is None:
             messagebox.showerror("error", "Invalid Path!")
             return True
-        if path is "":
+        if path == "":
             messagebox.showerror("error", "Invalid Path!")
             return True
 
