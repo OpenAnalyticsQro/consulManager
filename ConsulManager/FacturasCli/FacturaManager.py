@@ -25,14 +25,30 @@ class FacturaManager(object):
         if f_path.exists() is False:
             log.error(f"Invalid Factura Path: {f_path}")
 
+        # check for XML Files
+        for file in f_path.glob("*.xml"):
+            if file.is_file():
+                if file.suffix == ".xml":
+                    yield file
+                    continue
+
+        # check for PDF Files
+        for file in f_path.glob("*.pdf"):
+            if file.is_file():
+                if file.suffix == ".pdf":
+                    yield file
+                    continue
+
+        # check for files direferent to XMl and PDF
         for file in f_path.glob("*"):
-            # this could be a pdf or a xml file
-            if file.is_file() and file.suffix != ".zip":
-                yield file
-                continue
             # this is a folder
             if file.is_dir():
                 yield file
+                continue
+
+            # this could be a pdf or a xml file
+            if file.is_file() and file.suffix != ".zip":
+                # yield file
                 continue
             
             # extract all files
